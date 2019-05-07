@@ -1,18 +1,62 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Cache-Control" content="no-cache" />
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
-    <title>Gallery</title>
-  </head>
-  <body>
-    <div class="gallery">
-      
-    </div>
-    <script src="js/jquery-3.3.1.slim.min.js"></script>
-    <script src="js/pointer.js"></script>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
+        <title>Gallery</title>
+         
+    </head>
+    <body>
+        <div id="gallery" class="gallery">
+              
+        </div>
+        
+        <script src="js/jquery-3.3.1.slim.min.js"></script>
+        <script src="js/pointer.js"></script>
+        <script>
+            $("#gallery").galleryGrid({
+            rowHeight : 200,
+            lastRow : 'nojustify',
+            captions: true,
+            margins : 3,
+            randomize: true
+        });
+
+        $(window).scroll(function() {
+          if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            for(var i=0; i<5; i++){
+                imagesField.innerHTML += `  
+    
+                    <a href="${arrImages[i]}" class="gallery__item" >
+                        <img src="${arrImages[i]}" alt="img" class="gallery__item_link">
+                        <div class="caption">
+                            <div class="cap1">
+                                <span class="cap1_text">Some text</span>                
+                                <i class="fa fa-plus-circle cap1_icon"></i>
+                            </div>
+                            <div class="cap2"></div>
+                            <div class="cap3">
+                                <i class="fa fa-shopping-cart cap3_icon"></i>
+                                <i class="fa fa-star-half-full cap3_icon"></i>
+                                <i class="fa fa-dropbox cap3_icon"></i>
+                            </div>
+                        </div>
+                    </a> 
+
+                                    `;
+    }
+    document.querySelector("#gallery").appendChild(imagesField.content);
+    $('#gallery').galleryGrid('norewind');
+  }
+});
+
+
+
+    </script>
+
+    </body>
 </html>
