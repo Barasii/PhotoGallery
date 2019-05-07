@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -30,22 +30,23 @@
           if($(window).scrollTop() + $(window).height() == $(document).height()) {
             for(var i=0; i<5; i++){
                 imagesField.innerHTML += `  
-    
-                    <a href="${arrImages[i]}" class="gallery__item" >
-                        <img src="${arrImages[i]}" alt="img" class="gallery__item_link">
-                        <div class="caption">
-                            <div class="cap1">
-                                <span class="cap1_text">Some text</span>                
-                                <i class="fa fa-plus-circle cap1_icon"></i>
-                            </div>
-                            <div class="cap2"></div>
-                            <div class="cap3">
-                                <i class="fa fa-shopping-cart cap3_icon"></i>
-                                <i class="fa fa-star-half-full cap3_icon"></i>
-                                <i class="fa fa-dropbox cap3_icon"></i>
-                            </div>
-                        </div>
-                    </a> 
+    <div  class="gallery__item">
+             
+                <img src="${arrImages[i]}"  class="gallery__item_link" />
+
+            <div class="caption">
+                <div class="cap1">
+                    <span class="cap1_text">Some text</span>                
+                    <a href="#" target=_blank class="cap1_icon"><i class="fa fa-plus-circle"></i></a>
+                </div>
+                <div class="cap2"></div>
+                <div class="cap3">
+                    <a href="#" target=_blank class="cap3_icon"><i class="fa fa-shopping-cart"></i></a>
+                    <a href="#" target=_blank class="cap3_icon"><i class="fa fa-star-half-full"></i></a>
+                    <a href="#" target=_blank class="cap3_icon"><i class="fa fa-dropbox"></i></a>
+                </div>
+            </div>
+        </div> 
 
                                     `;
     }

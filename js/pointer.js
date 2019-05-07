@@ -29,12 +29,6 @@ var imagesField = document.createElement('template');
     // -------------------------------------------------------------------------
 
 
-/*!
- * galleryGrid - v3.7.0
- * http://miromannino.github.io/Justified-Gallery/
- * Copyright (c) 2018 Miro Mannino
- * Licensed under the MIT license.
- */
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
@@ -63,13 +57,7 @@ var imagesField = document.createElement('template');
   }
 }(function ($) {
 
-  /**
-   * Justified Gallery controller constructor
-   *
-   * @param $gallery the gallery to build
-   * @param settings the settings (the defaults are in galleryGrid.defaults)
-   * @constructor
-   */
+ 
   var galleryGrid = function ($gallery, settings) {
   
     this.settings = settings;
@@ -107,7 +95,7 @@ var imagesField = document.createElement('template');
   
   };
   
-  /** @returns {String} the best suffix given the width and the height */
+
   galleryGrid.prototype.getSuffix = function (width, height) {
     var longestSide, i;
     longestSide = (width > height) ? width : height;
@@ -119,28 +107,16 @@ var imagesField = document.createElement('template');
     return this.settings.sizeRangeSuffixes[this.suffixRanges[i - 1]];
   };
   
-  /**
-   * Remove the suffix from the string
-   *
-   * @returns {string} a new string without the suffix
-   */
+ 
   galleryGrid.prototype.removeSuffix = function (str, suffix) {
     return str.substring(0, str.length - suffix.length);
   };
-  
-  /**
-   * @returns {boolean} a boolean to say if the suffix is contained in the str or not
-   */
+ 
   galleryGrid.prototype.endsWith = function (str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
   };
   
-  /**
-   * Get the used suffix of a particular url
-   *
-   * @param str
-   * @returns {String} return the used suffix
-   */
+
   galleryGrid.prototype.getUsedSuffix = function (str) {
     for (var si in this.settings.sizeRangeSuffixes) {
       if (this.settings.sizeRangeSuffixes.hasOwnProperty(si)) {
@@ -151,12 +127,7 @@ var imagesField = document.createElement('template');
     return '';
   };
   
-  /**
-   * Given an image src, with the width and the height, returns the new image src with the
-   * best suffix to show the best quality thumbnail.
-   *
-   * @returns {String} the suffix to use
-   */
+ 
   galleryGrid.prototype.newSrc = function (imageSrc, imgWidth, imgHeight, image) {
     var newImageSrc;
   
@@ -173,12 +144,7 @@ var imagesField = document.createElement('template');
     return newImageSrc;
   };
   
-  /**
-   * Shows the images that is in the given entry
-   *
-   * @param $entry the entry
-   * @param callback the callback that is called when the show animation is finished
-   */
+  
   galleryGrid.prototype.showImg = function ($entry, callback) {
     if (this.settings.cssAnimation) {
       $entry.addClass('entry-visible');
@@ -189,41 +155,24 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Extract the image src form the image, looking from the 'safe-src', and if it can't be found, from the
-   * 'src' attribute. It saves in the image data the 'jg.originalSrc' field, with the extracted src.
-   *
-   * @param $image the image to analyze
-   * @returns {String} the extracted src
-   */
+
   galleryGrid.prototype.extractImgSrcFromImage = function ($image) {
     var imageSrc = (typeof $image.data('safe-src') !== 'undefined') ? $image.data('safe-src') : $image.attr('src');
     $image.data('jg.originalSrc', imageSrc);
     return imageSrc;
   };
   
-  /** @returns {jQuery} the image in the given entry */
   galleryGrid.prototype.imgFromEntry = function ($entry) {
     var $img = $entry.find(this.settings.imgSelector);
     return $img.length === 0 ? null : $img;
   };
   
-  /** @returns {jQuery} the caption in the given entry */
   galleryGrid.prototype.captionFromEntry = function ($entry) {
     var $caption = $entry.find('> .caption');
     return $caption.length === 0 ? null : $caption;
   };
   
-  /**
-   * Display the entry
-   *
-   * @param {jQuery} $entry the entry to display
-   * @param {int} x the x position where the entry must be positioned
-   * @param y the y position where the entry must be positioned
-   * @param imgWidth the image width
-   * @param imgHeight the image height
-   * @param rowHeight the row height of the row that owns the entry
-   */
+ 
   galleryGrid.prototype.displayEntry = function ($entry, x, y, imgWidth, imgHeight, rowHeight) {
     $entry.width(imgWidth);
     $entry.height(rowHeight);
@@ -237,7 +186,7 @@ var imagesField = document.createElement('template');
       $image.css('margin-left', - imgWidth / 2);
       $image.css('margin-top', - imgHeight / 2);
   
-      // Image reloading for an high quality of thumbnails
+   
       var imageSrc = $image.attr('src');
       var newImageSrc = this.newSrc(imageSrc, imgWidth, imgHeight, $image[0]);
   
@@ -267,12 +216,7 @@ var imagesField = document.createElement('template');
     this.displayEntryCaption($entry);
   };
   
-  /**
-   * Display the entry caption. If the caption element doesn't exists, it creates the caption using the 'alt'
-   * or the 'title' attributes.
-   *
-   * @param {jQuery} $entry the entry to process
-   */
+
   galleryGrid.prototype.displayEntryCaption = function ($entry) {
     var $image = this.imgFromEntry($entry);
     if ($image !== null && this.settings.captions) {
@@ -289,7 +233,7 @@ var imagesField = document.createElement('template');
         }
       }
   
-      // Create events (we check again the $imgCaption because it can be still inexistent)
+     
       if ($imgCaption !== null) {
         if (!this.settings.cssAnimation) $imgCaption.stop().fadeTo(0, this.settings.captionSettings.nonVisibleOpacity);
         this.addCaptionEventsHandlers($entry);
@@ -299,22 +243,12 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Validates the caption
-   *
-   * @param caption The caption that should be validated
-   * @return {boolean} Validation result
-   */
+
   galleryGrid.prototype.isValidCaption = function (caption) {
     return (typeof caption !== 'undefined' && caption.length > 0);
   };
   
-  /**
-   * The callback for the event 'mouseenter'. It assumes that the event currentTarget is an entry.
-   * It shows the caption using jQuery (or using CSS if it is configured so)
-   *
-   * @param {Event} eventObject the event object
-   */
+  
   galleryGrid.prototype.onEntryMouseEnterForCaption = function (eventObject) {
     var $caption = this.captionFromEntry($(eventObject.currentTarget));
     if (this.settings.cssAnimation) {
@@ -324,13 +258,7 @@ var imagesField = document.createElement('template');
           this.settings.captionSettings.visibleOpacity);
     }
   };
-  
-  /**
-   * The callback for the event 'mouseleave'. It assumes that the event currentTarget is an entry.
-   * It hides the caption using jQuery (or using CSS if it is configured so)
-   *
-   * @param {Event} eventObject the event object
-   */
+ 
   galleryGrid.prototype.onEntryMouseLeaveForCaption = function (eventObject) {
     var $caption = this.captionFromEntry($(eventObject.currentTarget));
     if (this.settings.cssAnimation) {
@@ -341,11 +269,7 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Add the handlers of the entry for the caption
-   *
-   * @param $entry the entry to modify
-   */
+
   galleryGrid.prototype.addCaptionEventsHandlers = function ($entry) {
     var captionMouseEvents = $entry.data('jg.captionMouseEvents');
     if (typeof captionMouseEvents === 'undefined') {
@@ -359,11 +283,7 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Remove the handlers of the entry for the caption
-   *
-   * @param $entry the entry to modify
-   */
+
   galleryGrid.prototype.removeCaptionEventsHandlers = function ($entry) {
     var captionMouseEvents = $entry.data('jg.captionMouseEvents');
     if (typeof captionMouseEvents !== 'undefined') {
@@ -373,21 +293,13 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Clear the building row data to be used for a new row
-   */
+
   galleryGrid.prototype.clearBuildingRow = function () {
     this.buildingRow.entriesBuff = [];
     this.buildingRow.aspectRatio = 0;
     this.buildingRow.width = 0;
   };
-  
-  /**
-   * Justify the building row, preparing it to
-   *
-   * @param isLastRow
-   * @returns a boolean to know if the row has been justified or not
-   */
+
   galleryGrid.prototype.prepareBuildingRow = function (isLastRow) {
     var i, $entry, imgAspectRatio, newImgW, newImgH, justify = true;
     var minHeight = 0;
@@ -443,11 +355,7 @@ var imagesField = document.createElement('template');
     return justify;
   };
   
-  /**
-   * Flush a row: justify it, modify the gallery height accordingly to the row height
-   *
-   * @param isLastRow
-   */
+
   galleryGrid.prototype.flushRow = function (isLastRow) {
     var settings = this.settings;
     var $entry, buildingRowRes, offX = this.border, i;
@@ -517,16 +425,12 @@ var imagesField = document.createElement('template');
     this.$gallery.height(height);
   };
   
-  /**
-   * @returns {boolean} a boolean saying if the scrollbar is active or not
-   */
+
   function hasScrollBar() {
     return $("body").height() > $(window).height();
   }
   
-  /**
-   * Checks the width of the gallery container, to know if a new justification is needed
-   */
+ 
   galleryGrid.prototype.checkWidth = function () {
     this.checkWidthIntervalId = setInterval($.proxy(function () {
   
@@ -551,23 +455,17 @@ var imagesField = document.createElement('template');
     }, this), this.settings.refreshTime);
   };
   
-  /**
-   * @returns {boolean} a boolean saying if the spinner is active or not
-   */
+
   galleryGrid.prototype.isSpinnerActive = function () {
     return this.spinner.intervalId !== null;
   };
   
-  /**
-   * @returns {int} the spinner height
-   */
+
   galleryGrid.prototype.getSpinnerHeight = function () {
     return this.spinner.$el.innerHeight();
   };
   
-  /**
-   * Stops the spinner animation and modify the gallery height to exclude the spinner
-   */
+ 
   galleryGrid.prototype.stopLoadingSpinnerAnimation = function () {
     clearInterval(this.spinner.intervalId);
     this.spinner.intervalId = null;
@@ -575,9 +473,7 @@ var imagesField = document.createElement('template');
     this.spinner.$el.detach();
   };
   
-  /**
-   * Starts the spinner animation
-   */
+ 
   galleryGrid.prototype.startLoadingSpinnerAnimation = function () {
     var spinnerContext = this.spinner;
     var $spinnerPoints = spinnerContext.$el.find('span');
@@ -594,9 +490,7 @@ var imagesField = document.createElement('template');
     }, spinnerContext.timeSlot);
   };
   
-  /**
-   * Rewind the image analysis to start from the first entry.
-   */
+ 
   galleryGrid.prototype.rewind = function () {
     this.lastFetchedEntry = null;
     this.lastAnalyzedIndex = -1;
@@ -605,12 +499,7 @@ var imagesField = document.createElement('template');
     this.clearBuildingRow();
   };
   
-  /**
-   * Update the entries searching it from the justified gallery HTML element
-   *
-   * @param norewind if norewind only the new entries will be changed (i.e. randomized, sorted or filtered)
-   * @returns {boolean} true if some entries has been founded
-   */
+  
   galleryGrid.prototype.updateEntries = function (norewind) {
     var newEntries;
   
@@ -644,11 +533,7 @@ var imagesField = document.createElement('template');
     return true;
   };
   
-  /**
-   * Apply the entries order to the DOM, iterating the entries and appending the images
-   *
-   * @param entries the entries that has been modified and that must be re-ordered in the DOM
-   */
+
   galleryGrid.prototype.insertToGallery = function (entries) {
     var that = this;
     $.each(entries, function () {
@@ -656,12 +541,7 @@ var imagesField = document.createElement('template');
     });
   };
   
-  /**
-   * Shuffle the array using the Fisher-Yates shuffle algorithm
-   *
-   * @param a the array to shuffle
-   * @return the shuffled array
-   */
+
   galleryGrid.prototype.shuffleArray = function (a) {
     var i, j, temp;
     for (i = a.length - 1; i > 0; i--) {
@@ -674,33 +554,19 @@ var imagesField = document.createElement('template');
     return a;
   };
   
-  /**
-   * Sort the array using settings.comparator as comparator
-   *
-   * @param a the array to sort (it is sorted)
-   * @return the sorted array
-   */
+
   galleryGrid.prototype.sortArray = function (a) {
     a.sort(this.settings.sort);
     this.insertToGallery(a);
     return a;
   };
   
-  /**
-   * Reset the filters removing the 'jg-filtered' class from all the entries
-   *
-   * @param a the array to reset
-   */
+  
   galleryGrid.prototype.resetFilters = function (a) {
     for (var i = 0; i < a.length; i++) $(a[i]).removeClass('jg-filtered');
   };
   
-  /**
-   * Filter the entries considering theirs classes (if a string has been passed) or using a function for filtering.
-   *
-   * @param a the array to filter
-   * @return the filtered array
-   */
+
   galleryGrid.prototype.filterArray = function (a) {
     var settings = this.settings;
     if ($.type(settings.filter) === 'string') {
@@ -729,15 +595,7 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Destroy the Justified Gallery instance.
-   *
-   * It clears all the css properties added in the style attributes. We doesn't backup the original
-   * values for those css attributes, because it costs (performance) and because in general one
-   * shouldn't use the style attribute for an uniform set of images (where we suppose the use of
-   * classes). Creating a backup is also difficult because JG could be called multiple times and
-   * with different style attributes.
-   */
+
   galleryGrid.prototype.destroy = function () {
     clearInterval(this.checkWidthIntervalId);
   
@@ -779,11 +637,7 @@ var imagesField = document.createElement('template');
     this.$gallery.data('jg.controller', undefined);
   };
   
-  /**
-   * Analyze the images and builds the rows. It returns if it found an image that is not loaded.
-   *
-   * @param isForResize if the image analyzer is called for resizing or not, to call a different callback at the end
-   */
+ 
   galleryGrid.prototype.analyzeImages = function (isForResize) {
     for (var i = this.lastAnalyzedIndex + 1; i < this.entries.length; i++) {
       var $entry = $(this.entries[i]);
@@ -817,10 +671,7 @@ var imagesField = document.createElement('template');
       this.stopLoadingSpinnerAnimation();
     }
   
-    /* Stop, if there is, the timeout to start the analyzeImages.
-     This is because an image can be set loaded, and the timeout can be set,
-     but this image can be analyzed yet.
-     */
+  
     this.stopImgAnalyzerStarter();
   
     //On complete callback
@@ -828,9 +679,7 @@ var imagesField = document.createElement('template');
     this.setGalleryFinalHeight(this.galleryHeightToSet);
   };
   
-  /**
-   * Stops any ImgAnalyzer starter (that has an assigned timeout)
-   */
+
   galleryGrid.prototype.stopImgAnalyzerStarter = function () {
     this.yield.flushed = 0;
     if (this.imgAnalyzerTimeout !== null) {
@@ -839,11 +688,7 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Starts the image analyzer. It is not immediately called to let the browser to update the view
-   *
-   * @param isForResize specifies if the image analyzer must be called for resizing or not
-   */
+ 
   galleryGrid.prototype.startImgAnalyzer = function (isForResize) {
     var that = this;
     this.stopImgAnalyzerStarter();
@@ -852,14 +697,7 @@ var imagesField = document.createElement('template');
     }, 0.001); // we can't start it immediately due to a IE different behaviour
   };
   
-  /**
-   * Checks if the image is loaded or not using another image object. We cannot use the 'complete' image property,
-   * because some browsers, with a 404 set complete = true.
-   *
-   * @param imageSrc the image src to load
-   * @param onLoad callback that is called when the image has been loaded
-   * @param onError callback that is called in case of an error
-   */
+
   galleryGrid.prototype.onImageEvent = function (imageSrc, onLoad, onError) {
     if (!onLoad && !onError) return;
   
@@ -880,10 +718,7 @@ var imagesField = document.createElement('template');
     memImage.src = imageSrc;
   };
   
-  /**
-   * Init of Justified Gallery controlled
-   * It analyzes all the entries starting theirs loading and calling the image analyzer (that works with loaded images)
-   */
+
   galleryGrid.prototype.init = function () {
     var imagesToLoad = false, skippedImages = false, that = this;
     $.each(this.entries, function (index, entry) {
@@ -951,12 +786,7 @@ var imagesField = document.createElement('template');
     this.checkWidth();
   };
   
-  /**
-   * Checks that it is a valid number. If a string is passed it is converted to a number
-   *
-   * @param settingContainer the object that contains the setting (to allow the conversion)
-   * @param settingName the setting name
-   */
+
   galleryGrid.prototype.checkOrConvertNumber = function (settingContainer, settingName) {
     if ($.type(settingContainer[settingName]) === 'string') {
       settingContainer[settingName] = parseFloat(settingContainer[settingName]);
@@ -969,10 +799,7 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * Checks the sizeRangeSuffixes and, if necessary, converts
-   * its keys from string (e.g. old settings with 'lt100') to int.
-   */
+
   galleryGrid.prototype.checkSizeRangesSuffixes = function () {
     if ($.type(this.settings.sizeRangeSuffixes) !== 'object') {
       throw 'sizeRangeSuffixes must be defined and must be an object';
@@ -1000,12 +827,7 @@ var imagesField = document.createElement('template');
     this.settings.sizeRangeSuffixes = newSizeRngSuffixes;
   };
   
-  /**
-   * check and convert the maxRowHeight setting
-   * requires rowHeight to be already set
-   * TODO: should be always called when only rowHeight is changed
-   * @return number or null
-   */
+
   galleryGrid.prototype.retrieveMaxRowHeight = function () {
     var newMaxRowHeight = null;
     var rowHeight = this.settings.rowHeight;
@@ -1033,9 +855,7 @@ var imagesField = document.createElement('template');
     return newMaxRowHeight;
   };
   
-  /**
-   * Checks the settings
-   */
+ 
   galleryGrid.prototype.checkSettings = function () {
     this.checkSizeRangesSuffixes();
   
@@ -1094,10 +914,7 @@ var imagesField = document.createElement('template');
     }
   };
   
-  /**
-   * It brings all the indexes from the sizeRangeSuffixes and it orders them. They are then sorted and returned.
-   * @returns {Array} sorted suffix ranges
-   */
+
   galleryGrid.prototype.retrieveSuffixRanges = function () {
     var suffixRanges = [];
     for (var rangeIdx in this.settings.sizeRangeSuffixes) {
@@ -1107,11 +924,7 @@ var imagesField = document.createElement('template');
     return suffixRanges;
   };
   
-  /**
-   * Update the existing settings only changing some of them
-   *
-   * @param newSettings the new settings (or a subgroup of them)
-   */
+ 
   galleryGrid.prototype.updateSettings = function (newSettings) {
     // In this case Justified Gallery has been called again changing only some options
     this.settings = $.extend({}, this.settings, newSettings);
@@ -1135,13 +948,9 @@ var imagesField = document.createElement('template');
           1024: '_b'  // used as else case because it is the last
         }
     */
-    thumbnailPath: undefined, /* If defined, sizeRangeSuffixes is not used, and this function is used to determine the
-    path relative to a specific thumbnail size. The function should accept respectively three arguments:
-    current path, width and height */
+    thumbnailPath: undefined, 
     rowHeight: 120, // required? required to be > 0?
-    maxRowHeight: false, // false or negative value to deactivate. Positive number to express the value in pixels,
-                         // A string '[0-9]+%' to express in percentage (e.g. 300% means that the row height
-                         // can't exceed 3 * rowHeight)
+    maxRowHeight: false, 
     margins: 1,
     border: -1, // negative value = same as margins, 0 = disabled, any other value to set the border
   
@@ -1183,17 +992,7 @@ var imagesField = document.createElement('template');
     }                                // access to fields such as $gallery, useful to trigger events with jQuery.
   };
 
-  /**
-   * Justified Gallery plugin for jQuery
-   *
-   * Events
-   *  - jg.complete : called when all the gallery has been created
-   *  - jg.resize : called when the gallery has been resized
-   *  - jg.rowflush : when a new row appears
-   *
-   * @param arg the action (or the settings) passed when the plugin is called
-   * @returns {*} the object itself
-   */
+
   $.fn.galleryGrid = function (arg) {
     return this.each(function (index, gallery) {
 
@@ -1210,21 +1009,19 @@ var imagesField = document.createElement('template');
         controller = new galleryGrid($gallery, $.extend({}, galleryGrid.prototype.defaults, arg));
         $gallery.data('jg.controller', controller);
       } else if (arg === 'norewind') {
-        // In this case we don't rewind: we analyze only the latest images (e.g. to complete the last unfinished row
-        // ... left to be more readable
+     
       } else if (arg === 'destroy') {
         controller.destroy();
         return;
       } else {
-        // In this case Justified Gallery has been called again changing only some options
+       
         controller.updateSettings(arg);
         controller.rewind();
       }
 
-      // Update the entries list
       if (!controller.updateEntries(arg === 'norewind')) return;
 
-      // Init justified gallery
+      
       controller.init();
 
     });
